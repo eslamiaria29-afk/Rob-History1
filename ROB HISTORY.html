@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>TheAri | Roblox Search</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+
+body{
+    background:#080808;
+    color:white;
+}
+
+/* NAVBAR */
+
+nav{
+    height:70px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 8%;
+    background:#111;
+    border-bottom:1px solid #222;
+}
+
+.logo{
+    font-size:25px;
+    font-weight:bold;
+}
+
+.logo span{
+    color:#ff3030;
+}
+
+nav a{
+    color:#aaa;
+    text-decoration:none;
+    margin-left:25px;
+    transition:.3s;
+}
+
+nav a:hover{
+    color:white;
+}
+
+
+/* HERO */
+
+.hero{
+    min-height:520px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:40px 20px;
+
+    background:
+    radial-gradient(
+        circle at center,
+        #292929 0%,
+        #080808 65%
+    );
+}
+
+.hero h1{
+    font-size:65px;
+    margin-bottom:15px;
+}
+
+.hero h1 span{
+    color:#ff3030;
+}
+
+.hero p{
+    color:#999;
+    font-size:18px;
+    margin-bottom:30px;
+}
+
+
+/* SEARCH */
+
+.search-box{
+    display:flex;
+    width:min(650px,90vw);
+    margin:auto;
+
+    background:#151515;
+    border:1px solid #333;
+    border-radius:10px;
+    overflow:hidden;
+}
+
+.search-box input{
+    flex:1;
+    padding:17px;
+
+    border:none;
+    outline:none;
+
+    background:transparent;
+    color:white;
+
+    font-size:16px;
+}
+
+.search-box button{
+    padding:0 25px;
+
+    border:none;
+    background:#ff3030;
+    color:white;
+
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.search-box button:hover{
+    background:#ff5050;
+}
+
+
+/* RESULTS */
+
+section{
+    padding:70px 8%;
+}
+
+.title{
+    text-align:center;
+    font-size:35px;
+    margin-bottom:40px;
+}
+
+#status{
+    text-align:center;
+    color:#888;
+    margin-bottom:25px;
+}
+
+.results{
+    display:grid;
+
+    grid-template-columns:
+    repeat(auto-fit,minmax(280px,1fr));
+
+    gap:25px;
+}
+
+.card{
+    background:#121212;
+
+    border:1px solid #252525;
+    border-radius:15px;
+
+    padding:25px;
+
+    transition:.3s;
+}
+
+.card:hover{
+    transform:translateY(-6px);
+    border-color:#ff3030;
+}
+
+.card h3{
+    margin-bottom:18px;
+}
+
+.info{
+    color:#999;
+    line-height:2;
+}
+
+.info strong{
+    color:#ddd;
+}
+
+.roblox-btn{
+    display:inline-block;
+
+    margin-top:18px;
+
+    padding:10px 18px;
+
+    background:#ff3030;
+    color:white;
+
+    text-decoration:none;
+
+    border-radius:7px;
+}
+
+.roblox-btn:hover{
+    background:#ff5050;
+}
+
+
+/* ABOUT */
+
+.about{
+    text-align:center;
+    background:#0d0d0d;
+}
+
+.about p{
+    max-width:700px;
+
+    margin:auto;
+
+    color:#aaa;
+
+    line-height:1.8;
+}
+
+
+/* FOOTER */
+
+footer{
+    text-align:center;
+
+    padding:30px;
+
+    color:#666;
+}
+
+
+/* MOBILE */
+
+@media(max-width:600px){
+
+    .hero h1{
+        font-size:42px;
+    }
+
+    nav{
+        padding:0 5%;
+    }
+
+    nav a{
+        margin-left:10px;
+        font-size:13px;
+    }
+
+    .search-box{
+        flex-direction:column;
+    }
+
+    .search-box button{
+        padding:15px;
+    }
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<!-- NAVBAR -->
+
+<nav>
+
+    <div class="logo">
+        ROB<span>HISTORY&nbsp;</span>
+    </div>
+
+    <div>
+
+        <a href="#home">
+            Home
+        </a>
+
+        <a href="#search">
+            Search
+        </a>
+
+        <a href="#about">
+            About
+        </a>
+
+    </div>
+
+</nav>
+
+
+
+<!-- HERO -->
+
+<section class="hero" id="home">
+
+    <div>
+
+        <h1>
+            Roblox <span>Search</span>
+        </h1>
+
+        <p>
+            Find Roblox games quickly and easily.
+        </p>
+
+
+        <div class="search-box">
+
+            <input
+                id="gameInput"
+                type="text"
+                placeholder="Search a Roblox game..."
+            >
+
+            <button onclick="searchGame()">
+                SEARCH
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- SEARCH RESULTS -->
+
+<section id="search">
+
+    <h2 class="title">
+        🔎 Search Results
+    </h2>
+
+    <div id="status">
+        Search for a Roblox game above.
+    </div>
+
+    <div
+        class="results"
+        id="results"
+    ></div>
+
+</section>
+
+
+
+<!-- ABOUT -->
+
+<section
+    class="about"
+    id="about"
+>
+
+    <h2 class="title">
+  About ROB HISTORY </h2>
+
+    <p>
+
+      ROB HISTORY is a Roblox game
+        discovery website.
+
+        Search for games and discover
+        useful information about them.
+
+  </p>
+
+</section>
+
+
+
+<!-- FOOTER -->
+
+<footer>
+
+  <p> © 2026 </p>
+  <p>&nbsp; &nbsp; &nbsp;&nbsp;This site belongs to THEARI and copying from it is not permitted.</p>
+</footer>
+
+
+
+<script>
+
+/*
+    DEMO DATABASE
+
+    فعلاً چند بازی نمونه داریم.
+    بعداً می‌توانیم این قسمت را
+    به API واقعی Roblox متصل کنیم.
+*/
+
+const games = [
+
+    {
+        name:"Blox Fruits",
+
+        creator:"Gamer Robot Inc.",
+
+        release:"January 16, 2019",
+
+        popularity:"99%",
+
+        favorites:"14M+",
+
+        url:"https://www.roblox.com/games/2753915549"
+    },
+
+
+    {
+        name:"Brookhaven RP",
+
+        creator:"Wolfpaq",
+
+        release:"April 21, 2020",
+
+        popularity:"98%",
+
+        favorites:"20M+",
+
+        url:"https://www.roblox.com/games/4924922222"
+    },
+
+
+    {
+        name:"Adopt Me!",
+
+        creator:"Uplift Games",
+
+        release:"July 14, 2017",
+
+        popularity:"99%",
+
+        favorites:"35M+",
+
+        url:"https://www.roblox.com/games/920587237"
+    },
+
+
+    {
+        name:"Murder Mystery 2",
+
+        creator:"Nikilis",
+
+        release:"January 18, 2014",
+
+        popularity:"96%",
+
+        favorites:"18M+",
+
+        url:"https://www.roblox.com/games/142823291"
+    }
+
+];
+
+
+
+function searchGame(){
+
+    const input =
+        document
+        .getElementById("gameInput")
+        .value
+        .toLowerCase()
+        .trim();
+
+
+    const results =
+        document
+        .getElementById("results");
+
+
+    const status =
+        document
+        .getElementById("status");
+
+
+    results.innerHTML="";
+
+
+    if(input===""){
+
+        status.innerHTML=
+        "Please enter a game name.";
+
+        return;
+
+    }
+
+
+    const found =
+        games.filter(game =>
+            game.name
+            .toLowerCase()
+            .includes(input)
+        );
+
+
+    if(found.length===0){
+
+        status.innerHTML=
+        "No games found.";
+
+        return;
+
+    }
+
+
+    status.innerHTML=
+    found.length +
+    " game(s) found.";
+
+
+    found.forEach(game=>{
+
+        const card =
+        document.createElement("div");
+
+        card.className="card";
+
+
+        card.innerHTML=`
+
+            <h3>
+                🎮 ${game.name}
+            </h3>
+
+            <div class="info">
+
+                <strong>
+                    Creator:
+                </strong>
+
+                ${game.creator}
+
+                <br>
+
+
+                <strong>
+                    Released:
+                </strong>
+
+                ${game.release}
+
+                <br>
+
+
+                <strong>
+                    Favorites:
+                </strong>
+
+                ${game.favorites}
+
+                <br>
+
+
+                <strong>
+                    Popularity:
+                </strong>
+
+                ${game.popularity}
+
+            </div>
+
+
+            <a
+                class="roblox-btn"
+                href="${game.url}"
+                target="_blank"
+            >
+
+                Open on Roblox
+
+            </a>
+
+        `;
+
+
+        results.appendChild(card);
+
+    });
+
+}
+
+
+/* ENTER KEY */
+
+document
+.getElementById("gameInput")
+.addEventListener(
+    "keydown",
+    function(event){
+
+        if(event.key==="Enter"){
+
+            searchGame();
+
+        }
+
+    }
+);
+
+</script>
+
+
+</body>
+</html>
+```
